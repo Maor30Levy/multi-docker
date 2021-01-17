@@ -1,0 +1,23 @@
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -f ./client/Dockerfile.dev -t maor30levy/react-test ./client 
+    
+script:
+  - docker run -e CI=true maor30levy/react-test npm test
+
+after_success:
+  - docker build -t maor30levy/multi-client ./client
+  - docker build -t maor30levy/multi-nginx ./nginx
+  - docker build -t maor30levy/multi-server ./server
+  - docker build -t maor30levy/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-s
+  - docker push maor30levy/multi-client
+  - docker push maor30levy/multi-nginx
+  - docker push maor30levy/multi-server
+  - docker push maor30levy/multi-worker
