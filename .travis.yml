@@ -21,3 +21,4 @@ after_success:
   - docker push maor30levy/multi-nginx
   - docker push maor30levy/multi-server
   - docker push maor30levy/multi-worker
+  
