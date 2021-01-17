@@ -16,7 +16,7 @@ after_success:
   - docker build -t maor30levy/multi-nginx ./nginx
   - docker build -t maor30levy/multi-server ./server
   - docker build -t maor30levy/multi-worker ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-s
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push maor30levy/multi-client
   - docker push maor30levy/multi-nginx
   - docker push maor30levy/multi-server
